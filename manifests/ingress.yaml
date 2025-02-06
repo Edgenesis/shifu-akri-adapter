@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: deviceshifu-ingress
+  namespace: deviceshifu
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /opcua-led(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: deviceshifu-akri-opcua-led-e6b66d
+            port:
+              number: 80
+      - path: /camera(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: deviceshifu-rtsp-57a51a
+            port:
+              number: 80
+      - path: /plc(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: deviceshifu-s7-9f6dc8
+            port:
+              number: 80

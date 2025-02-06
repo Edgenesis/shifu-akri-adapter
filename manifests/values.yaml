@@ -1,0 +1,39 @@
+custom:
+  discovery:
+    enabled: true
+    image:
+      repository: edgenesis/shifu-akri-rtsp-discovery
+      tag: nightly
+    name: akri-rtsp-discovery
+  configuration:
+    enabled: true
+    name: rtsp
+    discoveryHandlerName: rtsp
+    discoveryDetails: "devices.test.edgenesis.io:40554"
+    brokerProperties:
+      DEVICESHIFU_CONFIG: akri-rtsp-configmap
+opcua:
+  discovery:
+    enabled: true
+  configuration:
+    enabled: true
+    name: akri-opcua-led
+    brokerProperties:
+      DEVICESHIFU_CONFIG: configmap-led
+    discoveryDetails:
+      discoveryUrls:
+        - "opc.tcp://devices.test.edgenesis.io:44840"
+# custom:
+#   discovery:
+#     enabled: true
+#     image:
+#       repository: shifu-akri-s7-discovery
+#       tag: nightly
+#     name: akri-s7-discovery
+#   configuration:
+#     enabled: true
+#     name: s7
+#     discoveryHandlerName: s7
+#     discoveryDetails: "devices.test.edgenesis.io:40102"
+#     brokerProperties:
+#       DEVICESHIFU_CONFIG: deviceshifu-s7-configmap

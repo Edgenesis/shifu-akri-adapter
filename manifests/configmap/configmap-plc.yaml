@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deviceshifu-s7-configmap
+  namespace: deviceshifu
+data:
+  driverProperties: |
+    driverSku: s7-HTTP-driver
+    driverImage:
+  instructions: |
+    instructions:
+      getcontent:
+      getcpuordercode:
+      sendsinglebit:
+      sendcontent:
+  telemetries: |
+    telemetries:
