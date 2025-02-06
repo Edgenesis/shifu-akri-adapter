@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-led
+  namespace: deviceshifu
+data:
+  driverProperties: |
+    driverSku: LED OPC UA
+    driverImage:
+  instructions: |
+    instructions:
+      number:
+        protocolPropertyList:
+          OPCUANodeID: "ns=1;s=number"
+      light:
+        protocolPropertyList:
+          OPCUANodeID: "ns=1;s=light"
+      get_start_time:
+        protocolPropertyList:
+          OPCUANodeID: "i=2257"
+      get_server:
+        protocolPropertyList:
+          OPCUANodeID: "i=2261"
+      get_status:
+        protocolPropertyList:
+          OPCUANodeID: "i=2259"
+  telemetries: |
+    telemetrySettings:
+      telemetryUpdateIntervalInMiliseconds: 1000
+    telemetries:
+      device_health:
+        properties:
+          instruction: get_server
+          initialDelayMs: 1000
+          intervalMs: 1000

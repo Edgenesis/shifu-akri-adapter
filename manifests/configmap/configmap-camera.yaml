@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: akri-rtsp-configmap
+  namespace: deviceshifu
+data:
+  driverProperties: |
+    driverSku: HikVision
+    driverImage: edgenesis/camera-python:v0.0.1
+  instructions: |
+    instructionSettings:
+      defaultTimeoutSeconds: 0
+    instructions:
+      capture:
+      stream:
+  telemetries: |
+    telemetries:

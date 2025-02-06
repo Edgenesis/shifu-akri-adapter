@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shifu-akri-adapter
+  namespace: shifu-crd-system
+spec:
+  selector:
+    matchLabels:
+      app: shifu-akri-adapter
+  template:
+    metadata:
+      labels:
+        app: shifu-akri-adapter
+    spec:
+      serviceAccount: shifu-akri-sa
+      containers:
+      - name: shifu-akri-adapter
+        image: edgenesis/shifu-akri-adapter:nightly
+        resources:
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: shifu-akri-sa
+  namespace: shifu-crd-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: akri-shifu-controller-akri
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: akri-controller-role
+subjects:
+  - kind: ServiceAccount
+    name: shifu-akri-sa
+    namespace: shifu-crd-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: akri-shifu-controller-shifu
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: shifu-crd-manager-role
+subjects:
+  - kind: ServiceAccount
+    name: shifu-akri-sa
+    namespace: shifu-crd-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: akri-shifu-controller-action
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+  - kind: ServiceAccount
+    name: shifu-akri-sa
+    namespace: shifu-crd-system

@@ -1,0 +1,64 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: deviceshifu-ingress
+  namespace: deviceshifu
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "PathPrefix(`/opcua-led`)"
+      kind: Rule
+      middlewares:
+        - name: rewrite-opcua-led
+      services:
+        - name: deviceshifu-akri-opcua-led-e6b66d
+          port: 80
+    - match: "PathPrefix(`/camera`)"
+      kind: Rule
+      middlewares:
+        - name: rewrite-camera
+      services:
+        - name: deviceshifu-rtsp-57a51a
+          port: 80
+    - match: "PathPrefix(`/plc`)"
+      kind: Rule
+      middlewares:
+        - name: rewrite-plc
+      services:
+        - name: deviceshifu-s7-9f6dc8
+          port: 80
+
+---
+# Middleware for URL rewriting to remove the base path
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: rewrite-opcua-led
+  namespace: deviceshifu
+spec:
+  replacePathRegex:
+    regex: "^/opcua-led(/|$)(.*)"
+    replacement: "/$2"
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: rewrite-camera
+  namespace: deviceshifu
+spec:
+  replacePathRegex:
+    regex: "^/camera(/|$)(.*)"
+    replacement: "/$2"
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: rewrite-plc
+  namespace: deviceshifu
+spec:
+  replacePathRegex:
+    regex: "^/plc(/|$)(.*)"
+    replacement: "/$2"
