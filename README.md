@@ -170,3 +170,7 @@ kubectl delete akric -n devices akri-opcua-led rtsp
 helm uninstall -n devices akri
 kubectl delete -f https://raw.githubusercontent.com/Edgenesis/shifu/v0.63.0/pkg/k8s/crd/install/shifu_install.yml
 ```
+
+## Support
+
+For support, please reach out to [info@edgenesis.com](mailto:info@edgenesis.com)
