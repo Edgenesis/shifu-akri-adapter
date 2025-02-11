@@ -28,6 +28,13 @@ spec:
       services:
         - name: deviceshifu-s7-9f6dc8
           port: 80
+    - match: "PathPrefix(`/web`)"
+      kind: Rule
+      middlewares:
+        - name: rewrite-web
+      services:
+        - name: sample-web-service
+          port: 80
 
 ---
 # Middleware for URL rewriting to remove the base path
@@ -61,4 +68,15 @@ metadata:
 spec:
   replacePathRegex:
     regex: "^/plc(/|$)(.*)"
+    replacement: "/$2"
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: rewrite-web
+  namespace: deviceshifu
+spec:
+  replacePathRegex:
+    regex: "^/web(/|$)(.*)"
     replacement: "/$2"

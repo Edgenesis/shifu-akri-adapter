@@ -77,6 +77,12 @@ kubectl apply -f manifests/configmap
 kubectl apply -f shifu-akri-adapter/deployment.yaml
 ```
 
+### Deploy sample web UI
+
+```bash
+kubectl apply -f manifests/web.yaml
+```
+
 ## Interact with Devices via Traefik Ingress and k3s
 
 ### Apply Traefik IngressRoute

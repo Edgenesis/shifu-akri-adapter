@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Control Panel</title>
+    <style>
+        :root {
+            --primary-color: #A9D9C3;
+            --secondary-color: #79B4A9;
+            --text-color: #2D4B4E;
+            --background-color: #E0F2E9;
+            --border-color: #5F8A82;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .control-section {
+            background: var(--primary-color);
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--border-color);
+        }
+
+        button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: var(--border-color);
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            width: 100px;
+        }
+
+        #led-status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Device Control Panel</h1>
+
+    <div class="control-section">
+        <h2>RTSP Stream</h2>
+        <img id="rtsp-stream" alt="RTSP Stream" style="max-width: 100%; border-radius: 5px;">
+        <button onclick="startStream()">Start Stream</button>
+    </div>
+
+    <div class="control-section">
+        <h2>PLC Control</h2>
+        <button onclick="togglePLC(1, 0)">Turn PLC ON (Digit 0)</button>
+        <button onclick="togglePLC(0, 0)">Turn PLC OFF (Digit 0)</button>
+        <button onclick="togglePLC(1, 1)">Turn PLC ON (Digit 1)</button>
+        <button onclick="togglePLC(0, 1)">Turn PLC OFF (Digit 1)</button>
+        <button onclick="togglePLC(1, 2)">Turn PLC ON (Digit 2)</button>
+        <button onclick="togglePLC(0, 2)">Turn PLC OFF (Digit 2)</button>
+        <button onclick="togglePLC(1, 3)">Turn PLC ON (Digit 3)</button>
+        <button onclick="togglePLC(0, 3)">Turn PLC OFF (Digit 3)</button>
+    </div>
+
+    <div class="control-section">
+        <h2>LED Control</h2>
+        <input type="number" id="led-value" value="1999" min="0">
+        <button onclick="setLEDValue()">Set LED Value</button>
+        <button onclick="getLEDValue()">Get LED Value</button>
+        <div id="led-status"></div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:30080';
+
+        function startStream() {
+            const streamUrl = `${BASE_URL}/camera/stream?timeout=0`;
+            document.getElementById('rtsp-stream').src = streamUrl;
+        }
+
+        async function togglePLC(value, digit) {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=${digit}&value=${value}`);
+                alert(value === 1 ? `PLC turned ON (Digit ${digit})` : `PLC turned OFF (Digit ${digit})`);
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function setLEDValue() {
+            const value = document.getElementById('led-value').value;
+            try {
+                await fetch(`${BASE_URL}/opcua-led/number`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ value: parseInt(value) })
+                });
+                getLEDValue();
+            } catch (error) {
+                alert('Error setting LED value: ' + error.message);
+            }
+        }
+
+        async function getLEDValue() {
+            try {
+                const response = await fetch(`${BASE_URL}/opcua-led/number`);
+                const data = await response.text();
+                document.getElementById('led-status').innerText = `Current LED value: ${data}`;
+            } catch (error) {
+                alert('Error getting LED value: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
