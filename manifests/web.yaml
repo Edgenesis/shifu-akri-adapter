@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-web-deployment
+  namespace: deviceshifu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-web
+  template:
+    metadata:
+      labels:
+        app: sample-web
+    spec:
+      containers:
+      - name: sample-web
+        image: tomqin93/sample-shifu-web:nightly
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-web-service
+  namespace: deviceshifu
+spec:
+  selector:
+    app: sample-web
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

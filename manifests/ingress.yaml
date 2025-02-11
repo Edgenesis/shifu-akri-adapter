@@ -30,3 +30,10 @@ spec:
             name: deviceshifu-s7-9f6dc8
             port:
               number: 80
+      - path: /web(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: sample-web-service
+            port:
+              number: 80
