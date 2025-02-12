@@ -12,21 +12,21 @@ spec:
       middlewares:
         - name: rewrite-opcua-led
       services:
-        - name: deviceshifu-akri-opcua-led-e6b66d
+        - name: deviceshifu-akri-opcua-led-4263e5
           port: 80
     - match: "PathPrefix(`/camera`)"
       kind: Rule
       middlewares:
         - name: rewrite-camera
       services:
-        - name: deviceshifu-rtsp-57a51a
+        - name: deviceshifu-rtsp-139c61
           port: 80
     - match: "PathPrefix(`/plc`)"
       kind: Rule
       middlewares:
         - name: rewrite-plc
       services:
-        - name: deviceshifu-s7-9f6dc8
+        - name: deviceshifu-s7-5919d2
           port: 80
     - match: "PathPrefix(`/web`)"
       kind: Rule
