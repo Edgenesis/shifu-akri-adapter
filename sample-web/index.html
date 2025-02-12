@@ -77,14 +77,14 @@
 
     <div class="control-section">
         <h2>PLC Control</h2>
-        <button onclick="togglePLC(1, 0)">Turn PLC ON (Digit 0)</button>
-        <button onclick="togglePLC(0, 0)">Turn PLC OFF (Digit 0)</button>
-        <button onclick="togglePLC(1, 1)">Turn PLC ON (Digit 1)</button>
-        <button onclick="togglePLC(0, 1)">Turn PLC OFF (Digit 1)</button>
-        <button onclick="togglePLC(1, 2)">Turn PLC ON (Digit 2)</button>
-        <button onclick="togglePLC(0, 2)">Turn PLC OFF (Digit 2)</button>
-        <button onclick="togglePLC(1, 3)">Turn PLC ON (Digit 3)</button>
-        <button onclick="togglePLC(0, 3)">Turn PLC OFF (Digit 3)</button>
+        <button onclick="turnOnPLC0()">Turn PLC ON (Digit 0)</button>
+        <button onclick="turnOffPLC0()">Turn PLC OFF (Digit 0)</button>
+        <button onclick="turnOnPLC1()">Turn PLC ON (Digit 1)</button>
+        <button onclick="turnOffPLC1()">Turn PLC OFF (Digit 1)</button>
+        <button onclick="turnOnPLC2()">Turn PLC ON (Digit 2)</button>
+        <button onclick="turnOffPLC2()">Turn PLC OFF (Digit 2)</button>
+        <button onclick="turnOnPLC3()">Turn PLC ON (Digit 3)</button>
+        <button onclick="turnOffPLC3()">Turn PLC OFF (Digit 3)</button>
     </div>
 
     <div class="control-section">
@@ -96,17 +96,78 @@
     </div>
 
     <script>
-        const BASE_URL = 'http://localhost:30080';
-
         function startStream() {
             const streamUrl = `${BASE_URL}/camera/stream?timeout=0`;
             document.getElementById('rtsp-stream').src = streamUrl;
         }
 
-        async function togglePLC(value, digit) {
+        async function turnOnPLC0() {
             try {
-                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=${digit}&value=${value}`);
-                alert(value === 1 ? `PLC turned ON (Digit ${digit})` : `PLC turned OFF (Digit ${digit})`);
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=0&value=1`);
+                alert('PLC turned ON (Digit 0)');
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function turnOffPLC0() {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=0&value=0`);
+                alert('PLC turned OFF (Digit 0)');
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function turnOnPLC1() {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=1&value=1`);
+                alert('PLC turned ON (Digit 1)');
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function turnOffPLC1() {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=1&value=0`);
+                alert('PLC turned OFF (Digit 1)');
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function turnOnPLC2() {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=2&value=1`);
+                alert('PLC turned ON (Digit 2)');
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function turnOffPLC2() {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=2&value=0`);
+                alert('PLC turned OFF (Digit 2)');
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function turnOnPLC3() {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=3&value=1`);
+                alert('PLC turned ON (Digit 3)');
+            } catch (error) {
+                alert('Error controlling PLC: ' + error.message);
+            }
+        }
+
+        async function turnOffPLC3() {
+            try {
+                await fetch(`${BASE_URL}/plc/sendsinglebit?rootaddress=Q&address=0&start=0&digit=3&value=0`);
+                alert('PLC turned OFF (Digit 3)');
             } catch (error) {
                 alert('Error controlling PLC: ' + error.message);
             }
