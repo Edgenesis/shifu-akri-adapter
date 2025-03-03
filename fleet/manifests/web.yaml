@@ -20,7 +20,7 @@ spec:
             - containerPort: 80
           env:
             - name: BASE_URL
-              value: "http://localhost:30080"
+              value: ""
 ---
 apiVersion: v1
 kind: Service
