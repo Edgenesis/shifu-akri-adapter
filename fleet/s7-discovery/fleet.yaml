@@ -1,2 +1,2 @@
 dependsOn:
-  - name: shifu-akri-adapter-fleet-shifu
+  - name: shifu-akri-demo-fleet-shifu
