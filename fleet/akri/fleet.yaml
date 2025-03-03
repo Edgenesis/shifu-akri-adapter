@@ -1,0 +1,30 @@
+defaultNamespace: devices
+helm:
+  chart: oci://registry.suse.com/edge/3.2/akri-chart
+  version: 302.0.0+up0.12.20
+  values:
+    custom:
+      discovery:
+        enabled: true
+        image:
+          repository: edgenesis/shifu-akri-rtsp-discovery
+          tag: nightly
+        name: akri-rtsp-discovery
+      configuration:
+        enabled: true
+        name: rtsp
+        discoveryHandlerName: rtsp
+        discoveryDetails: "devices.test.edgenesis.io:40554"
+        brokerProperties:
+          DEVICESHIFU_CONFIG: akri-rtsp-configmap
+    opcua:
+      discovery:
+        enabled: true
+      configuration:
+        enabled: true
+        name: akri-opcua-led
+        brokerProperties:
+          DEVICESHIFU_CONFIG: configmap-led
+        discoveryDetails:
+          discoveryUrls:
+            - "opc.tcp://devices.test.edgenesis.io:44840"
