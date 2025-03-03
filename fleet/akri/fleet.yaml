@@ -1,7 +1,7 @@
 defaultNamespace: devices
 helm:
-  chart: oci://registry.suse.com/edge/3.2/akri-chart
-  version: 302.0.0+up0.12.20
+  chart: https://project-akri.github.io/akri/
+  version: 0.13.8
   values:
     custom:
       discovery:
@@ -29,4 +29,4 @@ helm:
           discoveryUrls:
             - "opc.tcp://devices.test.edgenesis.io:44840"
 dependsOn:
-  - name: shifu-akri-demo-fleet-shifu
+  - name: shifu-akri-adapter-fleet-shifu
