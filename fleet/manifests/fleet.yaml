@@ -1,1 +1,3 @@
 defaultNamespace: deviceshifu
+dependsOn:
+  - name: shifu

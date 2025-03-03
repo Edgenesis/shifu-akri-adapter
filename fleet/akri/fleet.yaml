@@ -28,3 +28,5 @@ helm:
         discoveryDetails:
           discoveryUrls:
             - "opc.tcp://devices.test.edgenesis.io:44840"
+dependsOn:
+  - name: shifu
