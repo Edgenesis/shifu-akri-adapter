@@ -27,6 +27,6 @@ helm:
           DEVICESHIFU_CONFIG: configmap-led
         discoveryDetails:
           discoveryUrls:
-            - "opc.tcp://devices.test.edgenesis.io:44840"
+            - "opc.tcp://devices.test.edgenesis.io:44840/"
 dependsOn:
   - name: shifu-akri-demo-fleet-shifu
