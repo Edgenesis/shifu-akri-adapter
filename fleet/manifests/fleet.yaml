@@ -1,0 +1,3 @@
+defaultNamespace: deviceshifu
+dependsOn:
+  - name: shifu-akri-demo-fleet-shifu
