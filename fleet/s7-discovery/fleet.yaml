@@ -1,2 +1,2 @@
 dependsOn:
-  - name: shifu
+  - name: shifu-akri-adapter-shifu
