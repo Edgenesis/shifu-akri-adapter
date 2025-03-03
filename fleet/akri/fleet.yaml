@@ -1,6 +1,6 @@
 defaultNamespace: devices
 helm:
-  chart: git::http://github.com/project-akri/akri/tree/main/deployment/helm
+  chart: git::http://github.com/project-akri/akri/deployment/helm
   version: 0.13.8
   values:
     custom:
