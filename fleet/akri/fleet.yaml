@@ -1,7 +1,7 @@
 defaultNamespace: devices
 helm:
-  repo: https://project-akri.github.io/akri/
-  version: 0.13.8
+  chart: oci://registry.suse.com/edge/3.2/akri-chart
+  version: 302.0.0+up0.12.20
   values:
     custom:
       discovery:
